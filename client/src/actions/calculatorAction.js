@@ -1,4 +1,4 @@
-"use strict"
+
 
 // GET THE RESULT as array of obje for the graph, e.g.: [{month: 1, amount:500},{month: 2, amount:700},{month: 3, amount:1000},{month: 4, amount:1500}]
 export function getInterestRate(){

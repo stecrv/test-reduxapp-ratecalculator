@@ -2,11 +2,11 @@
 
 //  REDUCERS
 export function calculatorReducers(state={interestreateresult:[],interestrate:0,savings:0,
-                                    monthlydepo:0,currency:'gbp',frequency:'monthly'}, action) {
+                                    monthlydepo:0,currency:'GBP',frequency:'monthly'}, action) {
     switch(action.type){
         case "INTERESTRATERESULT_GET":
             return{...state,
-                interestrate:action.payload,
+                interestreateresult:action.payload,
             }
             break;
         case "INTERESTRATE_INCREASE":
