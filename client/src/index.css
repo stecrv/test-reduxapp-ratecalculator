@@ -6,3 +6,25 @@ body {
 .hide{
   display: none
 }
+.inline{
+  display: inline;
+}
+.oneThird{
+  max-width: 30%;
+  float: left;
+  margin-right: 2%;
+}
+
+button{
+  height: 40px;
+  background: white;
+  display: inline-block;
+  font-size: 15px;
+  padding: 9px 15px;
+  border: 2px solid #AAB8C8;
+  border-radius: 8px;
+
+}
+#Instructions{
+  float: right;
+}
