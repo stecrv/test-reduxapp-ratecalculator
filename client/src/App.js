@@ -5,6 +5,14 @@ import DisplayGraph from './components/DisplayGraph'
 import Instructions from './components/Instructions'
 import './App.css';
 
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
+import logger from 'redux-logger';
+import reducers from './reducers/index';
+import {} from './actions/calculatorAction';
+
+
 class App extends Component {
   render() {
     return (

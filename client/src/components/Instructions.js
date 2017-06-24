@@ -19,8 +19,8 @@ export default class Instructions extends Component {
     render() {
 
         return (
-            <div >
-                <button onClick={this.handleVisibility.bind(this)} >Instructions</button>
+            <div id="Instructions">
+                <button onClick={this.handleVisibility.bind(this)} >{this.state.isVisible? 'CLOSE' : 'Instructions'}</button>
                 <div className={this.state.isVisible? 'show' : 'hide'}>
                     <p>The app must satisfy the following Acceptance Criteria (ACs):</p>
                     <ul>
