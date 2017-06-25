@@ -9,33 +9,18 @@ export function calculatorReducers(state={interestreateresult:[],interestrate:0,
                 interestreateresult:action.payload,
             }
             break;
-        case "INTERESTRATE_INCREASE":
+        case "INTERESTRATE_SET":
             return{...state,
                 interestrate:action.payload,
             }
             break;
-        case "INTERESTRATE_DECREASE":
-            return {...state,
-                interestrate:action.payload,
-            }
-            break;
-        case "SAVINGS_INCREASE":
+        case "SAVINGS_SET":
             return{...state,
                 savings:action.payload,
             }
             break;
-        case "SAVINGS_DECREASE":
-            return {...state,
-                savings:action.payload,
-            }
-            break;
-        case "MONTRLYDEPO_INCREASE":
+        case "MONTLYDEPO_SET":
             return{...state,
-                monthlydepo:action.payload,
-            }
-            break;
-        case "MONTRLYDEPO_DECREASE":
-            return {...state,
                 monthlydepo:action.payload,
             }
             break;
