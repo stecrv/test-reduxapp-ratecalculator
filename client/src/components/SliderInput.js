@@ -21,20 +21,26 @@ export default class SliderInput extends Component {
 	render() {
 		const { value } = this.state
 
+
 		return (
 			<div className="fmz-slider">
 				<p>{value}%</p>
-				<input type="range"
+				<input
+					ref={this.props.type}
+					type="range"
 					value={value}
 					min={0}
 					max={10}
 					step={0.25}
-					onChange={this.handleChange.bind(this)}/>
+					onChange={this.handleChange.bind(this)}
+				/>
+
 			</div>
 		)
 	}
 }
 
 SliderInput.propTypes = {
-	defaultValue: PropTypes.number
+	defaultValue: PropTypes.number,
+    type: PropTypes.string
 }

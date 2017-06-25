@@ -8,7 +8,7 @@ export default class CurrencyInput extends Component {
 
 		this.state = {
 			hasFocus: false,
-			value: props.defaultValue
+			value: props.defaultValue,
 		}
 	}
 
@@ -28,11 +28,14 @@ export default class CurrencyInput extends Component {
 		const { defaultValue } = this.props
 		const { value } = this.state
 
+
+
 		return (
 			<div className={`currency-input ${defaultValue !== undefined ? 'default-value' : ''}`}>
 				<span>£</span>
 				<input type="text"
 					value={value}
+					ref={this.props.type}
 					onChange={this.handleChange.bind(this)}
 					onFocus={this.handleFocus.bind(this)}/>
 			</div>
@@ -41,5 +44,6 @@ export default class CurrencyInput extends Component {
 }
 
 CurrencyInput.propTypes = {
-	defaultValue: PropTypes.number
+	defaultValue: PropTypes.number,
+    type: PropTypes.string
 }

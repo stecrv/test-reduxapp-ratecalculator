@@ -6,9 +6,17 @@ import axios from 'axios';
  */
 export function getInterestRate(data){
 
+    console.log('getInterestRate',data);
+    if(!data){
+        return {
+            type:"INTERESTRATERESULT_GET",
+            payload: null
+        }
+    }
     return function(dispatch){
         axios.post("/api/calculateinterestrate", data)
             .then(function(response){
+
                 dispatch({type:"INTERESTRATERESULT_GET", payload:response.data})
             })
             /*
@@ -20,31 +28,6 @@ export function getInterestRate(data){
 
 }
 
-export function setInterestRate(val){
-    console.log('setInterestRate',val);
-    return {
-        type:"INTERESTRATE_SET",
-        payload: val
-    }
-
-}
-
-
-export function setSaving(val){
-    console.log('SAVINGS_SET',val);
-    return {
-        type:"SAVINGS_SET",
-        payload: val
-    }
-}
-
-export function setMonthlyDeposit(val){
-    console.log('MONTLYDEPO_SET',val);
-    return {
-        type:"MONTLYDEPO_SET",
-        payload: val
-    }
-}
 
 export function updateFrenquency(val){
 

@@ -1,42 +1,52 @@
 const express = require('express');
-
 const app = express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 3001));
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+    app.use(express.static('client/build'));
 }
 
- var defresult = [
-    {
-        month: 1,
-        amount:500
-    },
-    {
-        month: 2,
-        amount:700
-    },
-    {
-        month: 3,
-        amount:1000
-    },
-    {
-        month: 4,
-        amount:1500
-    }
-]
+const defResult = null;
+
+var baseLenght = 12;
+
+function oneRate(past, current, rate){
+
+    current = parseInt(current);
+    past = parseInt(past);
+    rate =  parseFloat(rate);
+
+    // not sure about this
+    var r =  past +  current  + (current *  (rate / 100))
+
+    return r.toFixed(2);
+}
 function calculate(data) {
 
-  return defresult;
+    if (!data) return defResult;
+
+    var r =[];
+    var lastAmount = parseInt(data.savings);
+
+    for (let i = 0; i < baseLenght; i++) {
+        r.push(
+            {
+                month: i,
+                amount: oneRate(lastAmount, data.monthlydepo, data.interestrate)
+            }
+        )
+        lastAmount = lastAmount + parseInt(data.monthlydepo)
+    }
+    return r;
 }
 
-app.post('/api/calculateinterestrate', function(req, res){
-    var data = req.body;
-    res.json(defresult);
+app.post('/api/calculateinterestrate', function (req, res) {
+    res.json(calculate(req.body));
 });
-
 
 
 app.listen(app.get('port'), () => {
