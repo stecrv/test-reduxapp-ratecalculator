@@ -5,7 +5,7 @@ import DisplayGraph from './components/DisplayGraph'
 import Instructions from './components/Instructions'
 import './App.css';
 
-import {render} from 'react-dom';
+import {render,findDOMNode} from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getInterestRate, setInterestRate, setSaving, setMonthlyDeposit, updateFrenquency, updateCurrency} from './actions/calculatorAction';
@@ -15,28 +15,31 @@ getInterestRate, setInterestRate, setSaving, setMonthlyDeposit, updateFrenquency
 class App extends Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {
+            interestrate:	        0,
+            savings:			    0,
+            monthlydepo:            0,
+        }
     }
 	componentDidMount(){
 		//TODO get default data from api
-        this.props.getInterestRate()
+        this.props.getInterestRate(null)
 	}
 	handleValueChange(type,val){
-	    console.log('val',val,type);
-        switch(type) {
-            case 'savings':
-                console.log('val',val,type);
-                this.props.setSaving(val);
-                break;
-            case 'monthlydepo':
-                console.log('val',val,type);
-                this.props.setMonthlyDeposit(val);
-                break;
-            case 'interestrate':
-                console.log('val',val,type,this.props);
-                this.props.setInterestRate(val);
-                break;
-        }
+	    console.log('val',val,type, this);
+        console.log('this', this);
+        console.log('props', this.props);
+        console.log('state', this.state);
+        console.log('refs', this.refs);
+
+        this.setState({[type]:val})
+
+        const data=[{
+            interestrate:this.state.interestrate,
+            savings: this.state.savings,
+            monthlydepo:this.state.monthlydepo
+        }]
+        this.props.getInterestRate(data);
     }
   render() {
     return (
@@ -47,24 +50,21 @@ class App extends Component {
 				<div className="financial-inputs">
 					<div className="inline oneThird">
                         <p className="input-label">How much have you saved?</p>
-                        <CurrencyInput defaultValue={0} type={'savings'} onChangeVal={this.handleValueChange.bind(this)}/>
+                        <CurrencyInput defaultValue={0} type='savings' onChangeVal={this.handleValueChange.bind(this)}/>
 					</div>
 					<div className="inline oneThird">
                         <p className="input-label">How much will you save each month?</p>
-                        <CurrencyInput defaultValue={0}  type={"monthlydepo"} onChangeVal={this.handleValueChange.bind(this)}/>
+                        <CurrencyInput defaultValue={0}  type="monthlydepo" onChangeVal={this.handleValueChange.bind(this)}/>
 					</div>
                     <div className="inline oneThird">
                         <p className="input-label">How much interest will you earn per year?</p>
-                        <SliderInput defaultValue={4} type={"interestrate"} onChangeVal={this.handleValueChange.bind(this)}/>
+                        <SliderInput defaultValue={4} type="interestrate" onChangeVal={this.handleValueChange.bind(this)}/>
 					</div>
                     <Instructions />
 
 				</div>
 				<div className="financial-display">
-					{/*We have included some sample data here, you will need to replace this
-					with your own. Feel free to change the data structure if you wish.*/}
-					<DisplayGraph data={this.props.interestreateresult}
-                    />
+					<DisplayGraph data={this.props.interestreateresult} />
 				</div>
 
       </div>
@@ -75,9 +75,6 @@ class App extends Component {
 function mapStateToProps(state){
     return {
         interestreateresult: 	state.calculator.interestreateresult,
-        interestrate:	        state.calculator.interestrate,
-        savings:			    state.calculator.savings,
-        monthlydepo:            state.calculator.monthlydepo,
         currency:               state.calculator.currency,
         frequency:              state.calculator.frequency
     }
@@ -85,9 +82,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         getInterestRate:	getInterestRate,
-        setInterestRate:	setInterestRate,
-        setSaving:	        setSaving,
-        setMonthlyDeposit:	setMonthlyDeposit,
         updateFrenquency:	updateFrenquency,
         updateCurrenc:	    updateCurrency
     }, dispatch)
